@@ -28,7 +28,8 @@ public:
             int size_bloc, int reste, bool p3)
     {
 
-        int cpt = 0;
+        //int cpt = 0; /* ne sert a rien ? */
+
         /*
         if (rank == 0)
         {
@@ -46,39 +47,32 @@ public:
             }
         }
         */
-        T val;
-        T red;
-        T green;
-        T blue;
 
         //std::vector<T> copie(image.gwidth()*image.gheight());
         for (int i=ndeb; i<nfin;           i++)
         for (int j=0;    j<image.gwidth(); j++)
         {
-            val = 0;
-            red = 0;
-            green = 0;
-            blue = 0;
+            T red = 0;
+            T green = 0;
+            T blue = 0;
 
             for (int k=0; k<filtre.height; k++)
             for (int l=0; l<filtre.width;  l++)
             {
-                int x = (j - filtre.width/2 + l + image.gwidth() )
-                      % image.gwidth();
-                int y = (i - filtre.height/2 + k + image.gheight())
-                      % image.gheight();
-                val += image.gval(x,y)
-                     * filtre.filtre_val[k * filtre.width + l];
+                int x = j - filtre.width/2 + l;
+                x += image.gwidth();
+                x %= image.gwidth();
+                int y = i - filtre.height/2 + k;
+                y += image.gheight();
+                y %= image.gheight();
+                T val = filtre.filtre_val[k * filtre.width + l];
                 if (p3)
                 {
-                    red += image.gval(x*3, y*3)
-                         * filtre.filtre_val[k * filtre.width + l];
-                    green += image.gval(x*3 + 1, y*3)
-                           * filtre.filtre_val[k * filtre.width + l];
-                    blue += image.gval(x*3 + 2, y*3)
-                          * filtre.filtre_val[k * filtre.width + l];
+                    red   += image.gval(x*3 + 0, y*3) * val;
+                    green += image.gval(x*3 + 1, y*3) * val;
+                    blue  += image.gval(x*3 + 2, y*3) * val;
                 }
-                //std::cout<<val<<std::endl;
+                std::cout << val << std::endl;
             }
             if (p3)
             {

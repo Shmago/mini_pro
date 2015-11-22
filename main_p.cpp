@@ -17,14 +17,11 @@ int main(int argc, char* argv[])
     if (rank == 0)
         printf("nombre de proc : %d\n", nproc);
 
-    Image<int> handle;
     Reader<int> reader;
-    handle = reader.import("star_field.ascii.ppm");
-    Filter<int> f = make_sharpen<int>(3, 3);
+    Image<int> handle = reader.import("star_field.ascii.ppm");
     Convolution<int> c(handle);
-    bool p3;
-    if (handle.type == "P3")
-        p3 = true;
+
+    bool p3 = (handle.type == "P3");
 
     int reste = handle.height % nproc;
     int size_bloc = handle.height / nproc;
@@ -61,6 +58,7 @@ int main(int argc, char* argv[])
 
     //convolution parallèle
     printf("avant convol\n");
+    Filter<int> f = make_sharpen<int>(3, 3);
     c.convol(f, part, rank, ndeb, nfin, size_bloc, reste, p3);
     //communication en cas de memoire distribuee
     //envoi au rang 0 pour l'ecriture
