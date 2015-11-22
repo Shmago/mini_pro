@@ -1,5 +1,6 @@
 main
 
 *.ppm
+*.pgm
 !star_field.ascii.ppm
 
