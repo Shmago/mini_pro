@@ -1,1 +1,5 @@
 main
+
+*.ppm
+!star_field.ascii.ppm
+
