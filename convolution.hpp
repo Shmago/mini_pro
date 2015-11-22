@@ -1,5 +1,5 @@
-#ifndef CONVOLUTION__HPP
-#define CONVOLUTION__HPP
+#ifndef __CONVOLUTION_HPP__
+#define __CONVOLUTION_HPP__
 
 #include<vector>
 #include<iostream>
@@ -87,4 +87,4 @@ private:
 convol(gaussian_blur());
 convol(sharpen());*/
 
-#endif
+#endif // __CONVOLUTION_HPP__
